@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
 import { CatsModule } from './cats/cats.module';
-import { logger } from './common/middleware/logger.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
+import { loggerMiddleWare } from './common/middleware/logger.middleware';
 
 @Module({
   imports: [CatsModule, MongooseModule.forRoot('mongodb://localhost/nest')],
@@ -14,7 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
       consumer
-        .apply(logger)
+        .apply(loggerMiddleWare)
         .exclude(
           { path: 'cats', method: RequestMethod.POST },
         )

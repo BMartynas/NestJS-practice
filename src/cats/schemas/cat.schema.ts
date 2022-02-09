@@ -14,6 +14,12 @@ export class Cat {
 
     @Prop()
     breed: string;
+
+    @Prop()
+    dateOfBirth: Date;
+
+    @Prop()
+    ownerEmail: string;
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);

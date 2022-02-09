@@ -1,5 +1,6 @@
-export class UpdateCatDto {
-    name: string;
-    age: number;
-    breed: string;
-}
+import { OmitType, PartialType } from '@nestjs/mapped-types';
+import { CreateCatDto } from './create-cat.dto';
+
+export class UpdateCatDto extends PartialType (
+    OmitType(CreateCatDto, ['dateOfBirth'] as const),
+) {}
