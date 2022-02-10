@@ -6,7 +6,7 @@ export class MyLogger extends ConsoleLogger {
 
     log(message: any, ...optionalParams: any[]) {
         this.logCounter++;
-        super.log('Number of times log method was called: ' + this.logCounter);
+        super.log("Number of times MyLogger's log method was called: " + this.logCounter);
         super.log(message);
     }
 }

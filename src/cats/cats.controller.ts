@@ -6,6 +6,9 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { UpdateCatDto } from './dto/update-cat.dto';
+import { diskStorage} from 'multer';
+import { v4 as uuidv4 } from 'uuid';
+import { extname } from  'path';
 
 @Controller('cats')
 export class CatsController {
@@ -38,11 +41,40 @@ export class CatsController {
         return this.catsService.delete(id);
     }
 
-    @Post('upload')
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFile(@UploadedFile() file: Express.Multer.File) {
-        console.log(file);
+    @Post(':id/upload')
+    @UseInterceptors(FileInterceptor('file', {
+        storage: diskStorage({
+            destination: './uploads',
+            filename: (req, file, cb) => {
+                        const filename: string = uuidv4();
+                        cb(null, `${filename}${extname(file.originalname)}`);
+                    }
+        }),
+        fileFilter: (req, file, callback) => {
+            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+              return callback(new Error('Only image files are allowed!'), false);
+            }
+            callback(null, true);
+          }
+    }))
+    async uploadPicture(@Param('id') id, @UploadedFile() file: Express.Multer.File) {
+        this.catsService.setPicture(id, file.filename);
     }
+
+    @Get(':catId/picture')
+    async findPicture(@Param('catId') catId, @Res() res) {
+        const cat = await this.catsService.findOne(catId);
+        if(cat.picture) {
+            res.sendFile(cat.picture, { root: 'uploads'})
+        }   else {
+                this.logger.error("There isn't a picture uploaded for this cat!");    
+                res.sendStatus(404);
+        }
+    }
+
+
+
+
 
     // @Get('ab*cd')
     // findAll(@Req() request: Request): string {

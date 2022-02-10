@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import {  IsString, Min, IsDate, IsEmail, MinDate } from 'class-validator';    
+import {  IsString, Min, IsDate, IsEmail, MinDate, IsOptional } from 'class-validator';    
 
 export class CreateCatDto {
     @IsString()
@@ -18,4 +18,8 @@ export class CreateCatDto {
 
     @IsEmail()
     ownerEmail: string;
+
+    @IsOptional()
+    @IsString()
+    picture: string;
 }   

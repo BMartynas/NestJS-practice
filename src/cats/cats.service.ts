@@ -23,7 +23,7 @@ export class CatsService {
     }
 
     async update(id:string, updateCatDto: UpdateCatDto) {
-        return this.catModel.updateOne({ id }, {$set: { ...updateCatDto }})
+        return this.catModel.updateOne({ _id: id }, {$set: { ...updateCatDto }})
     }
 
     async delete(id: string) {
@@ -31,5 +31,9 @@ export class CatsService {
             .findByIdAndRemove({ _id: id })
             .exec();
         return deletedCat;
+    }
+
+    async setPicture(id: string, pictureName: string) {
+        return this.catModel.updateOne({ _id: id }, {picture: pictureName})
     }
 }

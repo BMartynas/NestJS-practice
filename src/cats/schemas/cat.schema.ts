@@ -20,6 +20,9 @@ export class Cat {
 
     @Prop()
     ownerEmail: string;
+
+    @Prop()
+    picture: string;
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
