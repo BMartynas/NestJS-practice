@@ -2,6 +2,7 @@ import {  IsString, MinLength, MaxLength, Matches, IsEmail } from 'class-validat
 
 export class createUserDto {
     @IsString()
+    @MaxLength(256)
     username: string;
 
     @IsString()
@@ -12,5 +13,6 @@ export class createUserDto {
     password: string;
 
     @IsEmail()
+    @MaxLength(256)
     email: string;
 }

@@ -6,9 +6,6 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { UpdateCatDto } from './dto/update-cat.dto';
-import { diskStorage} from 'multer';
-import { v4 as uuidv4 } from 'uuid';
-import { extname } from  'path';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('cats')
@@ -49,21 +46,7 @@ export class CatsController {
 
     @UseGuards(JwtAuthGuard)
     @Post(':id/upload')
-    @UseInterceptors(FileInterceptor('file', {
-        storage: diskStorage({
-            destination: './uploads',
-            filename: (req, file, cb) => {
-                        const filename: string = uuidv4();
-                        cb(null, `${filename}${extname(file.originalname)}`);
-                    }
-        }),
-        fileFilter: (req, file, callback) => {
-            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-              return callback(new Error('Only image files are allowed!'), false);
-            }
-            callback(null, true);
-          }
-    }))
+    @UseInterceptors(FileInterceptor('file'))
     async uploadPicture(@Param('id') id, @UploadedFile() file: Express.Multer.File) {
         this.catsService.setPicture(id, file.filename);
     }

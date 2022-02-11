@@ -1,14 +1,16 @@
 import { Type } from 'class-transformer';
-import {  IsString, Min, IsDate, IsEmail, MinDate, IsOptional } from 'class-validator';    
+import {  IsString, Min, IsDate, MinDate, IsOptional, MaxLength } from 'class-validator';    
 
 export class CreateCatDto {
     @IsString()
+    @MaxLength(256)
     name: string;
 
     @Min(0)
     age: number;
 
     @IsString()
+    @MaxLength(256)
     breed: string;
 
     @Type(() => Date)
@@ -18,5 +20,6 @@ export class CreateCatDto {
 
     @IsOptional()
     @IsString()
+    @MaxLength(256)
     picture: string;
 }   

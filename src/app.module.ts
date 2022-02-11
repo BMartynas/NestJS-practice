@@ -7,9 +7,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { loggerMiddleWare } from './common/middleware/logger.middleware';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { FilesManagerModule } from './files-manager/files-manager.module';
 
 @Module({
-  imports: [CatsModule, MongooseModule.forRoot('mongodb://localhost/nest'), UsersModule, AuthModule],
+  imports: [CatsModule, MongooseModule.forRoot('mongodb://localhost/nest'), UsersModule, AuthModule, FilesManagerModule],
   controllers: [AppController],
   providers: [AppService],
 })

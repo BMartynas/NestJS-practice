@@ -23,3 +23,4 @@ export class Cat {
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
+CatSchema.index( {breed: 1} )

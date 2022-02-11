@@ -3,5 +3,5 @@ export interface Cat {
     age: number;
     breed: string;
     dateOfBirth: Date;
-    picture: string;
+    picture?: string;
   }
