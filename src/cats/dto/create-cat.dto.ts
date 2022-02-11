@@ -16,9 +16,6 @@ export class CreateCatDto {
     @MinDate(new Date('2011-01-01'))
     dateOfBirth: Date;
 
-    @IsEmail()
-    ownerEmail: string;
-
     @IsOptional()
     @IsString()
     picture: string;

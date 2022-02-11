@@ -19,9 +19,6 @@ export class Cat {
     dateOfBirth: Date;
 
     @Prop()
-    ownerEmail: string;
-
-    @Prop()
     picture: string;
 }
 
