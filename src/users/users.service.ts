@@ -17,4 +17,9 @@ export class UsersService {
         const user =  this.userModel.findOne({ username: username }).lean();
         return user;
     }
+
+    async findOneById(id: string): Promise<User | undefined> {
+        const user =  this.userModel.findOne({ _id: id }).lean();
+        return user;
+    }
 }
