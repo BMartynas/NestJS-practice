@@ -22,4 +22,8 @@ export class UsersService {
         const user =  this.userModel.findOne({ _id: id }).lean();
         return user;
     }
+
+    async activateUser(id: string) {
+        return this.userModel.updateOne({ _id: id}, { isActivated: true });
+    }
 }

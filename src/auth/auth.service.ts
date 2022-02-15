@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/schemas/user.schema';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,6 +19,9 @@ export class AuthService {
     }
 
     async login(user: any) {
+        if (!user.isActivated) {
+            throw new Error('Please confirm your email to log in!');
+        }
         const payload = { username: user.username, sub: user._id };
         return {
             access_token: this.jwtService.sign(payload),
