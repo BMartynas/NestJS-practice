@@ -9,6 +9,7 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(MyLogger))
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

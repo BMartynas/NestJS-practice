@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import {  IsString, MinLength, MaxLength, Matches, IsEmail, IsArray, IsEnum } from 'class-validator';   
+import {  IsString, MinLength, MaxLength, Matches, IsEmail, IsArray, IsEnum, IsOptional } from 'class-validator';   
 import { Role } from 'src/enums/role.enum';
 
 export class createUserDto {
@@ -18,6 +18,7 @@ export class createUserDto {
     @MaxLength(256)
     email: string;
 
+    @IsOptional()
     @IsEnum(Role, { each: true })
     roles: Role[];
 }

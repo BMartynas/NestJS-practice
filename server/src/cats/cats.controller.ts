@@ -42,7 +42,7 @@ export class CatsController {
         return this.catsService.delete(id);
     }
 
-    @Roles(Role.Admin)
+    // @Roles(Role.Admin)
     @Post(':id/upload')
     @UseInterceptors(FileInterceptor('file'))
     async uploadPicture(@Param('id') id, @UploadedFile() file: Express.Multer.File) {

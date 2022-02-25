@@ -6,9 +6,6 @@ export class CreateCatDto {
     @MaxLength(256)
     name: string;
 
-    @Min(0)
-    age: number;
-
     @IsString()
     @MaxLength(256)
     breed: string;

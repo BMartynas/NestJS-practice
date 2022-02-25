@@ -15,7 +15,7 @@ export class User {
     @Prop()
     email: string;
 
-    @Prop()
+    @Prop({ default: ['user'] })
     roles: Role[];
 
     @Prop({ default: false })
